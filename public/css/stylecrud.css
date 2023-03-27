@@ -1,0 +1,69 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Satoshi", sans-serif;
+    /* text-decoration: none; */
+}
+
+:root {
+    /* general color */
+    --bg-color: #fffffe;
+    --head-text: #00214d;
+    --text-color: #1b2d45;
+    --button-color: #00ebc7;
+    --link-highlight: #00ebc7;
+    --card-bg: #f2f4f6;
+    --card-highlight: #ff5470;
+
+    /* color pallete https://www.happyhues.co/palettes/2 */
+}
+p {
+    color: var(--text-color);
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    background: url("../img/bg/Hexagon.svg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.content-crud {
+    margin-top: 100px;
+}
+
+.container-content-1 {
+    display: flex;
+
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px 10px;
+    border-radius: 1.5%;
+    background: #cecece;
+}
+
+.container-content-2 {
+    padding: 15px 0;
+}
+
+.tbdata {
+    margin: 25px auto;
+    padding: 15px;
+    border-collapse: collapse;
+}
+.tbdata td {
+    padding: 5px 15px;
+    border: 1px solid var(--card-bg);
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+.tbdata th {
+    color: var(--text-color);
+    border: 1px solid var(--card-bg);
+    background: var(--card-highlight);
+    text-align: center;
+    padding: 13px;
+}
