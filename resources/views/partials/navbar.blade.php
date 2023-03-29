@@ -15,8 +15,8 @@
          style="width:40px;height:40px">
          </lord-icon></a></li>
          
-         <li class="link"><a href="/kategori">add kategori</a></li>
-       <li class="link"><a href="/produk">add product</a></li>
+         <li class="link"><a href="{{ url('category') }}">add kategori</a></li>
+       <li class="link"><a href="{{ url('product') }}">add product</a></li>
        
      </ul>
    </div>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class categoryController extends Controller
 {
@@ -14,6 +17,9 @@ class categoryController extends Controller
     public function index()
     {
         //
+        $categories = category::all();
+        return view('kategori.k_index', compact('categories'));
+        // 
     }
 
     /**
@@ -34,7 +40,31 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         //
+        Session::flash('nama_kategori', $request->nama_kategori);
+        
+        // validasi
+        $request->validate([
+            'nama_kategori' => 'required',
+        ],[
+            // pesan validasi
+            'nama_kategori.required' => 'kategori harus diisi',
+        ]);
+
+        // validasi data jika sudah ada di database
+        $existingData = category::where('nama_kategori', $request->input('nama_kategori'))->first();
+            if ($existingData) {
+        $request->session()->flash('error', 'Data sudah ada.');
+            return redirect()->back();
+        }
+
+        $categories =[
+            'nama_kategori' =>$request->nama_kategori,
+        ];
+
+        category::create($categories);    
+        return redirect()->to('category')->with('success', 'Berhasil menambahkan data');
     }
 
     /**
@@ -69,6 +99,11 @@ class categoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $categories =[
+            'nama_kategori' =>$request->nama_kategori,
+        ];
+        category::where('id',$id)->update($categories);
+        return redirect()->to('category')->with('success', 'Berhasil melakukan update data kategori');
     }
 
     /**
@@ -80,5 +115,7 @@ class categoryController extends Controller
     public function destroy($id)
     {
         //
+        category::where('id', $id)->delete();
+        return redirect()->to('category')->with('success', 'Berhasil melakukan hapus category');
     }
 }

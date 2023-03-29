@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +20,6 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/produk', function () {
-    return view('produk.p_index');
-});
 
-Route::get('/kategori', function () {
-    return view('kategori.k_index');
-});
+Route::resource('category', CategoryController::class);
+Route::resource('product', ProductController::class);

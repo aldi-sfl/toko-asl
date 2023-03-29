@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('web-title', 'kategori')
+@section('web-title', 'kategori -')
     
 
 @section('home')
@@ -8,33 +8,16 @@
     <div class="content content-crud">
 
     <h3 class="text-center"  style="margin-bottom: 5px;">Tambah data kategori </h3>
+    @include('partials.validasi')
     <div class="container-content-1">
-            
-      <form action='' method="post" >
+      <form action='{{ url('category') }}' method="post" >
         @csrf
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nama produk</label>
-            <input type="text" name="nama_produk" class="form-control" id="nama_produk" aria-describedby="emailHelp">
+            <label for="exampleInputEmail1" class="form-label">Nama kategori</label>
+            <input type="text"  name="nama_kategori" value="{{ Session::get('nama_kategori') }}" class="form-control" id="nama_kategori" aria-describedby="emailHelp">
           </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">deskripsi</label>
-            <input type="text" name="deskripsi" class="form-control" id="deskripsi" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-          <select name="nama_kategori" class="fo rm-select" aria-label="Default select example">
             
-          </select> 
-        </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">harga</label>
-            <input type="text" name="harga" class="form-control" id="harga" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">jumlah</label>
-            <input type="text" name="jumlah" class="form-control" id="jumlah" aria-describedby="emailHelp">
-          </div>
-
-          <button type="submit" name="submit" class="btn btn-primary">tambah produk</button>
+          <button type="submit"  name="submit" class="btn btn-primary ">tambah produk</button>
         </form>
         
         
@@ -47,24 +30,28 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>nama produk</th>
-                <th>deskripsi</th>
                 <th>kategori</th>
-                <th>harga</th>
-                <th>jumlah</th>
-                <th colspan="3">aksi</th>
+                <th colspan="2">aksi</th>
               </tr>
             </thead>
             <tbody>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
+                @foreach ($categories as $item)
+                    
+                <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->nama_kategori }}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#editmodal{{ url('category/'.$item->id) }}" >Update</button>
+                        @include('kategori.editmodal')
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#deletemodal{{ url('category/'.$item->id) }}" >Delete</button>
+                        @include('kategori.delmodal')
+                    </td>
+                    
+                </tr>
+                @endforeach
+             
             </tbody>
         </table>
 

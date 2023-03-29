@@ -8,37 +8,42 @@
     <div class="content content-crud">
 
     <h3 class="text-center"  style="margin-bottom: 5px;">Tambah data produk </h3>
+    @include('partials.validasi')
     <div class="container-content-1">
             
-      <form action='' method="post" >
+      {{-- <form action="{{ url('product') }}" method="post" enctype="multipart/form-data">
         @csrf
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nama produk</label>
+            <label  class="form-label">Nama produk</label>
             <input type="text" name="nama_produk" class="form-control" id="nama_produk" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">deskripsi</label>
+            <label  class="form-label">deskripsi</label>
             <input type="text" name="deskripsi" class="form-control" id="deskripsi" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-          <select name="nama_kategori" class="fo rm-select" aria-label="Default select example">
-            
-          </select> 
-        </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">harga</label>
+            <label  class="form-label">harga</label>
             <input type="text" name="harga" class="form-control" id="harga" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">jumlah</label>
+            <label  class="form-label">jumlah</label>
             <input type="text" name="jumlah" class="form-control" id="jumlah" aria-describedby="emailHelp">
           </div>
-
-          <button type="submit" name="submit" class="btn btn-primary">tambah produk</button>
-        </form>
-
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit repellat sunt possimus veniam doloribus hic quia repudiandae ab autem dignissimos sequi, soluta iste libero pariatur earum atque tenetur labore quisquam expedita corporis odit. Expedita doloremque tempore odit laudantium quis, natus odio rem ea officia labore explicabo, ad perferendis. Velit accusantium soluta pariatur non, reprehenderit laboriosam exercitationem fuga unde officiis nulla necessitatibus vel blanditiis magnam eveniet quasi adipisci iure ullam cumque qui eligendi rem error deleniti. Culpa earum id quos, ut dolorem tenetur modi voluptas? Harum numquam culpa et tenetur earum, exercitationem quasi nostrum labore neque quam, suscipit reprehenderit minima perferendis.</p>
-        
+          <div class="mb-3">
+            <label for="form-label">Kategori</label>
+            <select name="category_id" id="category_id" class="form-control">
+              <option selected disabled hidden>-- Pilih Kategori --</option>
+              @foreach ($categories as $category)
+                  <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? ' selected' : '' }}>
+                      {{ $category->nama_kategori }}</option>
+              @endforeach
+          </select>
+        </div>
+          
+          <button type="submit" name="submit"  class="btn btn-primary">tambah produk</button>
+        </form>         --}}
+        <button type="submit" data-bs-toggle="modal" data-bs-target="#addmodal{{ url('product') }}" name="submit"  class="btn btn-primary">tambah produk</button>
+        @include('produk.addmodal')
         
       </div>
 
@@ -51,22 +56,32 @@
                 <th>ID</th>
                 <th>nama produk</th>
                 <th>deskripsi</th>
-                <th>kategori</th>
                 <th>harga</th>
                 <th>jumlah</th>
-                <th colspan="3">aksi</th>
+                <th>kategori</th>
+                <th colspan="2">aksi</th>
               </tr>
             </thead>
             <tbody>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
+             <tr>
+              @foreach ($product as $item)
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->nama_produk }}</td>
+                <td>{{ $item->deskripsi }}</td>
+                <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                <td>{{ $item->jumlah }}</td>
+                <td>{{ $item->category->nama_kategori }}</td>
+                <td>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target="#editmodal{{ url('product/'.$item->id) }}" name="submit" class="btn btn-warning">update</button>
+                  @include('produk.editmodal')
+                </td>
+                <td>
+                  <button type="submit" data-bs-toggle="modal" data-bs-target="#deletemodal{{ url('product/'.$item->id) }}" name="submit" class="btn btn-danger">delete</button>
+                  @include('produk.delmodal')
+                </td>
+                  
+              </tr>
+              @endforeach
             </tbody>
         </table>
 

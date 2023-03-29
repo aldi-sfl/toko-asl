@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css\style.css">
     <link rel="stylesheet" href="css\stylecrud.css">
     <link rel="shortcut icon" type="png" href="img/logo/web icon.png" />
+    
 
     <title>@yield('web-title') ASL Shop</title>
     <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
@@ -24,6 +25,7 @@
     
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+    <script src="../js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
