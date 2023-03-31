@@ -1,6 +1,6 @@
-<div class="modal fade" id="addmodal{{ url('product') }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+<div class="modal fade" id="addmodal{{ url('product') }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered"  >
+      <div class="modal-content " style="background: #f2f4f6" >
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">tambah data</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -17,28 +17,29 @@
                 <label  class="form-label">deskripsi</label>
                 <input type="text" name="deskripsi" value="{{ old('deskripsi') }}" class="form-control" id="deskripsi" aria-describedby="emailHelp">
             </div>
-            {{-- <div class="mb-3">
+            <div class="mb-3">
+              <label for="form-label">Kategori</label>
+              <select name="category_id" id="category_id" class="form-control">
+              <option selected disabled hidden>-- Pilih Kategori --</option>
+              @foreach ($categories as $category)
+                  <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? ' selected' : '' }}>
+                      {{ $category->nama_kategori }}</option>
+              @endforeach
+          </select>
+          </div>
+            <div class="mb-3">
                 <label  class="form-label">gambar</label>
-                <input type="file" name="foto_produk" class="form-control" id="foto_produk" aria-describedby="emailHelp">
-            </div> --}}
+                <input type="file" name="image" value="{{ old('image') }}" class="form-control" id="image">
+            </div>
             <div class="mb-3">
                 <label  class="form-label">harga</label>
-                <input type="text" name="harga" value="{{ old('harga') }}" class="form-control" id="harga" aria-describedby="emailHelp">
+                <input type="text" name="harga" value="{{ old('harga') }}" class="form-control" id="harga" >
             </div>
             <div class="mb-3">
                 <label  class="form-label">jumlah</label>
                 <input type="text" name="jumlah" value="{{ old('jumlah') }}" class="form-control" id="jumlah" aria-describedby="emailHelp">
             </div>
-            <div class="mb-3">
-                <label for="form-label">Kategori</label>
-                <select name="category_id" id="category_id" class="form-control">
-                <option selected disabled hidden>-- Pilih Kategori --</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}"{{ old('category_id') == $category->id ? ' selected' : '' }}>
-                        {{ $category->nama_kategori }}</option>
-                @endforeach
-            </select>
-            </div>
+            
             
             <button type="submit" name="submit"  class="btn btn-primary">tambah produk</button>
             </form>   

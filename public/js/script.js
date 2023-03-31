@@ -27,3 +27,5 @@ $(document).ready(function () {
         $("#harga").val(numeric); // Set the numeric value back to the input
     });
 });
+
+//

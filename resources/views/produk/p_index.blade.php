@@ -44,6 +44,7 @@
         </form>         --}}
         <button type="submit" data-bs-toggle="modal" data-bs-target="#addmodal{{ url('product') }}" name="submit"  class="btn btn-primary">tambah produk</button>
         @include('produk.addmodal')
+        <img src="{{ asset('storage/images/product_64251.png') }}" alt="" width="30%" height="30%">
         
       </div>
 
@@ -56,6 +57,7 @@
                 <th>ID</th>
                 <th>nama produk</th>
                 <th>deskripsi</th>
+                <th>gambar</th>
                 <th>harga</th>
                 <th>jumlah</th>
                 <th>kategori</th>
@@ -68,8 +70,11 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nama_produk }}</td>
                 <td>{{ $item->deskripsi }}</td>
+                <td><img src="{{ asset('storage/images/'.$item->image) }}" alt="error" width="50%" height="50%"></td>
+                {{-- <td><img src="{{ asset('storage/images/product_64251.png') }}" alt="" width="30%" height="30%"></td> --}}
+                {{-- <td>{{ $item->image }}</td> --}}
                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                <td>{{ $item->jumlah }}</td>
+                <td>{{ $item->jumlah }}</td>  
                 <td>{{ $item->category->nama_kategori }}</td>
                 <td>
                     <button type="submit" data-bs-toggle="modal" data-bs-target="#editmodal{{ url('product/'.$item->id) }}" name="submit" class="btn btn-warning">update</button>

@@ -20,6 +20,6 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-
+Route::view('/login', 'user.login');
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);

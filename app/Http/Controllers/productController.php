@@ -50,30 +50,40 @@ class productController extends Controller
     $validatedData = $request->validate([
         'nama_produk' => 'required|max:50',
         'deskripsi' => 'required|max:255',
-        // 'foto_produk' => 'required',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:7048',
         'harga' => 'required|numeric',
         'jumlah' => 'required|numeric',
         'category_id' => 'required|exists:categories,id'
     ],[
         'nama_produk' => 'produk harus diisi',
         'deskripsi' => 'deskripsi harus diisi',
+        'image' => 'gambar tidak boleh kosong',
         'harga' => 'harga harus diisi',
         'jumlah' => 'jumlah harus diisi',
         'category_id' => ' kategori harus diisi',
         
     ]);
 
+    // Get the file from the request
+    $image = $request->file('image');
+
+    // Generate a unique file name for the image
+    $uniqueID = substr(uniqid(), 0, 5);
+    $fileName = 'product_' . $uniqueID . '.' . $image->getClientOriginalExtension();
+
+    // Save the image to the storage disk
+    $image->storeAs('public/images/', $fileName);
+
     // create a new product with the validated data
     $product = new Product;
     $product->nama_produk = $validatedData['nama_produk'];
     $product->deskripsi = $validatedData['deskripsi'];
+    $product->image = 'public/images/'. $fileName;
     $product->harga = $validatedData['harga'];
     $product->jumlah = $validatedData['jumlah'];
     $product->category_id = $validatedData['category_id'];
-
-    // save the new product to the database
     $product->save();
-
+    
     // redirect the user to the product index page with a success message
     return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
 
