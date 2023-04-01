@@ -41,17 +41,8 @@ class SessionController extends Controller
             'password' => Hash::make($request->password)
         ];
         User::create($data);
+        return redirect('/')->with('success','akun berhasil dibuat');
 
-        $infologin = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-
-        if (Auth::attempt($infologin)) {
-            return redirect('/')->with('success', Auth::user()->name . ' Berhasil login');
-        } else {
-            return redirect('/')->withErrors('Username dan password yang dimasukkan tidak valid');
-        }
     }
 
 

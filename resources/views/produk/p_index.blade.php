@@ -71,7 +71,7 @@
                 <td>{{ $item->nama_produk }}</td>
                 <td>{{ $item->deskripsi }}</td>
                
-                <td><img src="{{ asset('image/'.$item->image)}}" alt="error" width="50%" height="50%"></td>
+                <td><img src="{{ asset('storage/images/'.$item->image) }}"alt="error" width="50%" height="50%"></td>
                 
                 {{-- <td><img src="{{ asset('storage/images/product_64251.png') }}" alt="" width="30%" height="30%"></td> --}}
                 {{-- <td>{{ $item->image }}</td> --}}

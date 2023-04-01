@@ -20,9 +20,11 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('dashboard');
 });
+Route::get('/', [CategoryController::class, 'dashindex']);
+Route::get('/', [ProductController::class, 'dashindex']);
 
 // login regis
-Route::view('/coba', 'coba');
+// Route::view('/coba', 'coba');
 
 // Route::get('/register', [SessionController::class, 'regindex']);
 Route::post('/register', [SessionController::class, 'regstore']);

@@ -22,6 +22,14 @@ class categoryController extends Controller
         // 
     }
 
+    public function dashindex()
+    {
+        //
+        $categories = category::all();
+        return view('dashboard', compact('categories'));
+        // 
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -21,6 +21,13 @@ class productController extends Controller
         $product = product::all();
         return view('produk.p_index', compact('product','categories'));
     }
+    
+    public function dashindex()
+    {
+        $categories = category::all();
+        $product = product::all();
+        return view('dashboard', compact('product','categories'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -69,22 +76,36 @@ class productController extends Controller
 
 
     $image = $request->file('image');
-    $uniqueID = substr(uniqid(), 0, 5);
-    $fileName = 'product_' . $uniqueID . '.' . $image->getClientOriginalExtension();
-    $image->storeAs('public/images/', $fileName);
+$fileName = 'product_' . uniqid() . '.' . $image->getClientOriginalExtension();
+$image->move(public_path('images'), $fileName);
+
+$product = new Product;     
+$product->nama_produk = $validatedData['nama_produk'];
+$product->deskripsi = $validatedData['deskripsi'];
+$product->image = 'public/images/'. $fileName;
+$product->harga = $validatedData['harga'];
+$product->jumlah = $validatedData['jumlah'];
+$product->category_id = $validatedData['category_id'];
+$product->save();   
 
 
-    $product = new Product;     
-    $product->nama_produk = $validatedData['nama_produk'];
-    $product->deskripsi = $validatedData['deskripsi'];
-    $product->image = 'public/images/'. $fileName;
-    $product->harga = $validatedData['harga'];
-    $product->jumlah = $validatedData['jumlah'];
-    $product->category_id = $validatedData['category_id'];
-    $product->save();   
+    // $image = $request->file('image');
+    // $uniqueID = substr(uniqid(), 0, 5);
+    // $fileName = 'product_' . $uniqueID . '.' . $image->getClientOriginalExtension();
+    // $image->storeAs('public/images/', $fileName);
+
+
+    // $product = new Product;     
+    // $product->nama_produk = $validatedData['nama_produk'];
+    // $product->deskripsi = $validatedData['deskripsi'];
+    // $product->image = 'public/images/'. $fileName;
+    // $product->harga = $validatedData['harga'];
+    // $product->jumlah = $validatedData['jumlah'];
+    // $product->category_id = $validatedData['category_id'];
+    // $product->save();   
     
 
-    return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
+    // return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
         
     }
 
