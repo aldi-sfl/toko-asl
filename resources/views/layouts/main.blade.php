@@ -22,6 +22,7 @@
 <body>
     @include('partials.navbar')
     @yield('home')
+    @include('partials.validasi')
     @include('user.login')
     @include('user.register')
     

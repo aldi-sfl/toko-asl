@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CategoryController;
 
 /*
@@ -20,6 +21,15 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::view('/login', 'user.login');
+// login regis
+Route::view('/coba', 'coba');
+
+// Route::get('/register', [SessionController::class, 'regindex']);
+Route::post('/register', [SessionController::class, 'regstore']);
+Route::post('/login', [SessionController::class, 'login']);
+Route::get('/logout', [SessionController::class, 'logout']);
+
+
+
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);

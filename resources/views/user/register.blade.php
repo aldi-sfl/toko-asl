@@ -7,13 +7,14 @@
         </div>
         <div class="modal-body">
             <div class="form-box">
-                <form class="form">
+                <form class="form" action="/register" method="POST">
+                    @csrf
                     <span class="title">Register</span>
                     <span class="subtitle">Daftarkan akunmu untuk membuka berbagai fitur</span>
                     <div class="form-container">
-                      <input type="text" class="input" placeholder="Full Name">
-                            <input type="email" class="input" placeholder="Email">
-                            <input type="password" class="input" placeholder="Password">
+                            <input name="name" id="name" type="text" class="input" placeholder="Full Name">
+                            <input name="email" id="email" type="email" class="input" placeholder="Email">
+                            <input name="password" id="password" type="password" class="input" placeholder="Password">
                     </div>
                     <button>Daftar</button>
                 </form>
@@ -21,6 +22,7 @@
                   <p>Sudah punya akun? <a href="" data-bs-toggle="modal" data-bs-target="#modallogin">Log in</a> </p>
                 </div>
                 </div>
+                
         </div>
         
       </div>

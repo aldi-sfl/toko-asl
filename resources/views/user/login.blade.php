@@ -7,12 +7,13 @@
         </div>
         <div class="modal-body">
             <div class="form-box">
-                <form class="form">
+                <form class="form" action="/login" method="POST">
+                  @csrf
                     <span class="title">Login</span>
                     <span class="subtitle">login akunmu untuk memudahkan berbelanja</span>
                     <div class="form-container">
-                            <input type="email" class="input" placeholder="Email">
-                            <input type="password" class="input" placeholder="Password">
+                        <input name="email" id="email" value="{{ Session::get('email') }}" type="email" class="input" placeholder="Email">
+                        <input name="password" id="password" type="password" class="input" placeholder="Password">
                     </div>
                     <button>Login</button>
                 </form>

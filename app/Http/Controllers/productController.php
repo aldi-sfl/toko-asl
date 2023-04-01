@@ -42,6 +42,7 @@ class productController extends Controller
     {
         Session::flash('nama_produk', $request->nama_produk);
         Session::flash('deskripsi', $request->deskripsi);
+        Session::flash('image', $request->image);
         Session::flash('harga', $request->harga);
         Session::flash('jumlah', $request->jumlah);
         Session::flash('category_id', $request->category_id);
@@ -58,35 +59,32 @@ class productController extends Controller
         'nama_produk' => 'produk harus diisi',
         'deskripsi' => 'deskripsi harus diisi',
         'image' => 'gambar tidak boleh kosong',
+        'image.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG, PNG',
+        // 'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
         'harga' => 'harga harus diisi',
         'jumlah' => 'jumlah harus diisi',
         'category_id' => ' kategori harus diisi',
         
     ]);
 
-    // Get the file from the request
-    $image = $request->file('image');
 
-    // Generate a unique file name for the image
+    $image = $request->file('image');
     $uniqueID = substr(uniqid(), 0, 5);
     $fileName = 'product_' . $uniqueID . '.' . $image->getClientOriginalExtension();
-
-    // Save the image to the storage disk
     $image->storeAs('public/images/', $fileName);
 
-    // create a new product with the validated data
-    $product = new Product;
+
+    $product = new Product;     
     $product->nama_produk = $validatedData['nama_produk'];
     $product->deskripsi = $validatedData['deskripsi'];
     $product->image = 'public/images/'. $fileName;
     $product->harga = $validatedData['harga'];
     $product->jumlah = $validatedData['jumlah'];
     $product->category_id = $validatedData['category_id'];
-    $product->save();
+    $product->save();   
     
-    // redirect the user to the product index page with a success message
-    return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
 
+    return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
         
     }
 
