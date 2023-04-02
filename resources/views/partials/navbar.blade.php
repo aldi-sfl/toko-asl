@@ -9,7 +9,7 @@
        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
      </form>
      <ul class="nav-links">
-       <li><a href=""><lord-icon
+       <li><a href="/cart"><lord-icon
          src="https://cdn.lordicon.com/rmzhcgbh.json"
          trigger="hover"
          style="width:40px;height:40px">
@@ -20,9 +20,11 @@
         
          @auth
          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ Auth::user()->name }}
+          <a class="nav-link dropdown-toggle account" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/img/bg/avataritem.png" width="30px" height="30px" style="border-radius: 100%" alt="Avatar" class="avatar me-2">{{ Auth::user()->name }}
           </a>
+          {{-- variasi styling saja --}}
+          {{-- @include('partials.popup') --}}
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Setting</a></li>
             <li><hr class="dropdown-divider"></li>

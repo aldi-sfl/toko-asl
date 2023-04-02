@@ -6,7 +6,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action='{{ url('product/'.$item->id) }}' method="post" >
+          <form action='{{ url('product/'.$item->id) }}' method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="mb-3">
@@ -20,6 +20,10 @@
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">deskripsi</label>
               <input type="text" name="deskripsi" value="{{ $item->deskripsi }}"  class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">gambar</label>
+              <input type="file" name="image" value="{{ $item->image }}"  class="form-control" id="recipient-name">
             </div>
             <div class="mb-3">
               <label for="recipient-name" class="col-form-label">harga</label>

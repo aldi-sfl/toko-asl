@@ -10,7 +10,8 @@ class category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_kategori'
+        'nama_kategori',
+        'image'
     ];
 
     /**

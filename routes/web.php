@@ -35,3 +35,7 @@ Route::get('/logout', [SessionController::class, 'logout']);
 
 Route::resource('category', CategoryController::class);
 Route::resource('product', ProductController::class);
+
+
+Route::view('/cart', 'cart.cart');
+

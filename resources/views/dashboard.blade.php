@@ -14,7 +14,7 @@
     @foreach ($categories as $item)
       <a href="#" class="category-items">
       <div class="card" style="width: 18rem;">
-         <img src="img/logo/personal-computer.png" class="card-img-top" alt="...">
+         <img src="{{ asset('../public/k_images/'.$item->image) }}" class="card-img-top" alt="image not found">
          <div class="card-body">
            <p class="card-text text-center">{{ $item->nama_kategori }}</p>
          </div>
@@ -39,7 +39,7 @@
         @foreach ($product as $item)
          <div class="card">
             <div class="card-img">
-               <img src="img/logo/smartphone.png" alt="" style="height:100%%; width: 100%;">
+               <img src="{{ asset('../public/p_images/'.$item->image) }}" alt="Error" style="height:100%%; width: 100%;">
             </div>
             <div class="card-info">
               <a href="" style="text-decoration: none"> 

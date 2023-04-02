@@ -7,6 +7,7 @@ use App\Models\product;
 use App\Models\category;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class productController extends Controller
 {
@@ -54,7 +55,6 @@ class productController extends Controller
         Session::flash('jumlah', $request->jumlah);
         Session::flash('category_id', $request->category_id);
 
-        // validate the form data
     $validatedData = $request->validate([
         'nama_produk' => 'required|max:50',
         'deskripsi' => 'required|max:255',
@@ -67,45 +67,28 @@ class productController extends Controller
         'deskripsi' => 'deskripsi harus diisi',
         'image' => 'gambar tidak boleh kosong',
         'image.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG, PNG',
-        // 'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
+        'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
         'harga' => 'harga harus diisi',
         'jumlah' => 'jumlah harus diisi',
         'category_id' => ' kategori harus diisi',
         
     ]);
 
-
-    $image = $request->file('image');
-$fileName = 'product_' . uniqid() . '.' . $image->getClientOriginalExtension();
-$image->move(public_path('images'), $fileName);
-
-$product = new Product;     
-$product->nama_produk = $validatedData['nama_produk'];
-$product->deskripsi = $validatedData['deskripsi'];
-$product->image = 'public/images/'. $fileName;
-$product->harga = $validatedData['harga'];
-$product->jumlah = $validatedData['jumlah'];
-$product->category_id = $validatedData['category_id'];
-$product->save();   
+    $fileName = time() . '.' . $request->image->extension();
+    $request->image->storeAs('public/p_images', $fileName);
 
 
-    // $image = $request->file('image');
-    // $uniqueID = substr(uniqid(), 0, 5);
-    // $fileName = 'product_' . $uniqueID . '.' . $image->getClientOriginalExtension();
-    // $image->storeAs('public/images/', $fileName);
-
-
-    // $product = new Product;     
-    // $product->nama_produk = $validatedData['nama_produk'];
-    // $product->deskripsi = $validatedData['deskripsi'];
-    // $product->image = 'public/images/'. $fileName;
-    // $product->harga = $validatedData['harga'];
-    // $product->jumlah = $validatedData['jumlah'];
-    // $product->category_id = $validatedData['category_id'];
-    // $product->save();   
+    $product = new Product;     
+    $product->nama_produk = $validatedData['nama_produk'];
+    $product->deskripsi = $validatedData['deskripsi'];
+    $product->image = $fileName;
+    $product->harga = $validatedData['harga'];
+    $product->jumlah = $validatedData['jumlah'];
+    $product->category_id = $validatedData['category_id'];
+    $product->save();   
     
 
-    // return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
+    return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
         
     }
 
@@ -141,15 +124,44 @@ $product->save();
     public function update(Request $request, $id)
     {
         //
-        $product =[
-            'nama_produk' =>$request->nama_produk,
-            'deskripsi' =>$request->deskripsi,
-            'harga' =>$request->harga,
-            'jumlah' =>$request->jumlah,
-            'category_id' =>$request->category_id,
-        ];
-        product::where('id',$id)->update($product);
-        return redirect()->to('product')->with('success', 'Berhasil melakukan update data ');
+        $validatedData = $request->validate([
+            'nama_produk' => 'required|max:50',
+            'deskripsi' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:7048',
+            'harga' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id'
+        ],[
+            'nama_produk' => 'produk harus diisi',
+            'deskripsi' => 'deskripsi harus diisi',
+            'image.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG, PNG',
+            // 'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
+            'harga' => 'harga harus diisi',
+            'jumlah' => 'jumlah harus diisi',
+            'category_id' => ' kategori harus diisi',
+            
+        ]);
+    
+        $product = Product::findOrFail($id);     
+        $product->nama_produk = $validatedData['nama_produk'];
+        $product->deskripsi = $validatedData['deskripsi'];
+        $product->harga = $validatedData['harga'];
+        $product->jumlah = $validatedData['jumlah'];
+        $product->category_id = $validatedData['category_id'];
+    
+        if ($request->hasFile('image')) {
+            // Delete old image
+            Storage::delete('public/p_images/' . $product->image);
+    
+            // Store new image
+            $fileName = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/p_images', $fileName);
+            $product->image = $fileName;
+        }
+    
+        $product->save();   
+    
+        return redirect()->to('product')->with('success', 'produk berhasil diupdate');
     }
 
     /**
@@ -158,10 +170,14 @@ $product->save();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
-        product::where('id', $id)->delete();
+        if($product->image){
+            Storage::delete('public/p_images/' . $product->image);
+        }
+    
+        $product->delete();
+    
         return redirect()->to('product')->with('success', 'Berhasil melakukan hapus ');
     }
 }

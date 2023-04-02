@@ -204,7 +204,8 @@ svg {
 /*Text*/
 .text-title {
     font-weight: 900;
-    font-size: 1.2em;
+    /* font-size: 1.2em; */
+    font-size: clamp(0.5em, 2vw, 1em);
     line-height: 1.5;
 }
 

@@ -10,6 +10,7 @@
                 <form class="form" action="/login" method="POST">
                   @csrf
                     <span class="title">Login</span>
+                    
                     <span class="subtitle">login akunmu untuk memudahkan berbelanja</span>
                     <div class="form-container">
                         <input name="email" id="email" value="{{ Session::get('email') }}" type="email" class="input" placeholder="Email">
