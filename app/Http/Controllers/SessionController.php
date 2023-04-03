@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\product;
+use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +51,11 @@ class SessionController extends Controller
     public function logindex()
     {
         # code...
-        return view('dashboard');
+        $categories = category::all();
+        $product = product::all();
+        session()->flash('info', 'Silahkan login terlebih dahulu');
+        return view('dashboard', compact('product','categories'));
+    
     }
 
     public function login(Request $request)

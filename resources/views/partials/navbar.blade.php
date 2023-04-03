@@ -15,8 +15,9 @@
          style="width:40px;height:40px">
          </lord-icon></a></li>
          @guest
-         <li class="link"><a href="#" data-bs-toggle="modal" data-bs-target="#modallogin">Login</a></li>
+         <li class="link"><a href="{{ url('login') }}" data-bs-toggle="modal" data-bs-target="#modallogin">Login</a></li>
          @endguest
+        
         
          @auth
          <li class="nav-item dropdown">

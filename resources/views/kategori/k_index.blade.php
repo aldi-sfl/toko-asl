@@ -21,7 +21,7 @@
             <input type="file"  name="image" value="{{ Session::get('image') }}" class="form-control" id="image" aria-describedby="emailHelp">
           </div>
             
-          <button type="submit"  name="submit" class="btn btn-primary ">tambah produk</button>
+          <button type="submit"  name="submit" class="btn btn-primary ">tambah kategori</button>
         </form>
         
         

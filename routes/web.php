@@ -27,15 +27,18 @@ Route::get('/', [ProductController::class, 'dashindex']);
 // Route::view('/coba', 'coba');
 
 // Route::get('/register', [SessionController::class, 'regindex']);
-Route::post('/register', [SessionController::class, 'regstore']);
+Route::get('/login', [SessionController::class, 'logindex'])->name('login');
 Route::post('/login', [SessionController::class, 'login']);
+Route::post('/register', [SessionController::class, 'regstore']);
 Route::get('/logout', [SessionController::class, 'logout']);
 
 
+Route::group(['middleware' => ['auth']], function() { 
+    
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
+    
+    
+    Route::view('/cart', 'cart.cart');
 
-Route::resource('category', CategoryController::class);
-Route::resource('product', ProductController::class);
-
-
-Route::view('/cart', 'cart.cart');
-
+});    
