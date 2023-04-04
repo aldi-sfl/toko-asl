@@ -89,4 +89,74 @@ class SessionController extends Controller
         Auth::logout();
         return redirect('/')->with('success', 'Berhasil logout');
     }
+
+    public function userindex()
+    {
+        # code...
+        $users = user::all();
+        return view('user.setting', compact('users'));
+    }
+
+    public function userstore(Request $request)
+    {
+        // if ($request->hasFile('image')) {
+        //     $request->validate([
+        //         'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:7048',
+        //     ],[
+        //         // pesan validasi
+        //         'image.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG, PNG',
+        //         'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
+        //     ]);
+        
+        //     $fileName = time() . '.' . $request->image->extension();
+        //     $request->image->storeAs('public/profile_pic', $fileName);
+        // } else {
+        //     $request->validate([
+        //         'image' => 'required',
+        //     ],[
+        //         // pesan validasi
+        //         'image.required' => 'Foto harus diisi',
+        //     ]);
+        
+        //     $fileName = null; // set filename to null if no image is inserted
+        // }
+        // $user = Auth::user();
+        // $users =[
+            
+        //     'image' => $fileName,
+        // ];
+
+        // user::save($users);
+        // return redirect()->to('dashboard')->with('success', 'Berhasil menambahkan data');
+    }
+    
+    public function userupdate(Request $request)
+    {
+        # code...
+        // Validate the uploaded image
+    // $request->validate([
+    //     'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:7048',
+    // ], [
+    //     'image.mimes' => 'Foto hanya diperbolehkan berekstensi JPEG, JPG, PNG',
+    //     'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
+    // ]);
+
+    // Get the current user
+    $user = Auth::user();
+
+    // Handle the uploaded image
+    if ($request->hasFile('image')) {
+        $fileName = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/profile_pic', $fileName);
+        $user->image = $fileName;
+    } else {
+        $user->image = null;
+    }
+
+    // Save the user data
+    $user->save();
+
+    return redirect()->to('/')->with('success', 'Berhasil mengupdate data');
+
+    }
 }

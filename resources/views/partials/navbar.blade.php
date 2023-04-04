@@ -27,7 +27,7 @@
           {{-- variasi styling saja --}}
           {{-- @include('partials.popup') --}}
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Setting</a></li>
+            <li><a class="dropdown-item" href="/setting">Setting</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>

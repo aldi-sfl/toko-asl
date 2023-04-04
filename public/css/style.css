@@ -5,6 +5,7 @@
     box-sizing: border-box;
     font-family: "Satoshi", sans-serif;
     scrollbar-width: thin;
+    scroll-behavior: smooth;
     /* text-decoration: none; */
 }
 
@@ -161,7 +162,7 @@ nav .logo a {
     /* margin: 20px 0; */
 }
 .card {
-    width: 190px;
+    width: 220px;
     height: 254px;
     margin: 20px 0;
     padding: 0.8em;

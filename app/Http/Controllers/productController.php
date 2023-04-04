@@ -74,7 +74,8 @@ class productController extends Controller
         
     ]);
 
-    $fileName = time() . '.' . $request->image->extension();
+    $prefix = 'pdc-';
+    $fileName = $prefix . time() . '.' . $request->image->extension();
     $request->image->storeAs('public/p_images', $fileName);
 
 
@@ -88,7 +89,7 @@ class productController extends Controller
     $product->save();   
     
 
-    return redirect()->route('product.index')->with('success', 'produk berhasil ditambahkan');
+    return redirect()->back('product.index')->withInput()->with('success', 'produk berhasil ditambahkan');
         
     }
 
@@ -154,7 +155,8 @@ class productController extends Controller
             Storage::delete('public/p_images/' . $product->image);
     
             // Store new image
-            $fileName = time() . '.' . $request->image->extension();
+            $prefix = 'pdc-';
+            $fileName = $prefix . time() . '.' . $request->image->extension();  
             $request->image->storeAs('public/p_images', $fileName);
             $product->image = $fileName;
         }

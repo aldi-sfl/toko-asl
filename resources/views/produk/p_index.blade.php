@@ -39,15 +39,11 @@
                 <td>{{ $item->nama_produk }}</td>
                 <td>{{ $item->deskripsi }}</td>
                <td>
-                @if($item->image)
+                
                     <img src="{{ asset('../public/p_images/'.$item->image) }}" alt="error" style="height: 100px;width:100px;">
-                  @else 
-                    <span>No image found!</span>
-                @endif
+               
                </td>
-                {{-- <td><img src="{{ asset('storage/images/'.$item->image) }}"alt="error" width="50%" height="50%"></td> --}}
-                {{-- <td><img src="{{ asset('storage/images/product_64285.png') }}" alt="" width="30%" height="30%"></td> --}}
-                {{-- <td>{{ $item->image }}</td> --}}
+               
                 <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                 <td>{{ $item->jumlah }}</td>  
                 <td>{{ $item->category->nama_kategori }}</td>

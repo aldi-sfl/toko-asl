@@ -65,7 +65,8 @@ class categoryController extends Controller
                 'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
             ]);
         
-            $fileName = time() . '.' . $request->image->extension();
+            $prefix = 'ctg-';
+            $fileName = $prefix . time() . '.' . $request->image->extension();
             $request->image->storeAs('public/k_images', $fileName);
         } else {
             $request->validate([
@@ -140,7 +141,8 @@ class categoryController extends Controller
                 'image.max' => 'Ukuran file tidak boleh lebih dari 7 MB.',
             ]);
         
-            $fileName = time() . '.' . $request->image->extension();
+            $prefix = 'ctg-';
+            $fileName = $prefix . time() . '.' . $request->image->extension();
             $request->image->storeAs('public/k_images', $fileName);
 
             // delete old image if exists

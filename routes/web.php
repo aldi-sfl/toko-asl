@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CategoryController;
@@ -35,10 +36,16 @@ Route::get('/logout', [SessionController::class, 'logout']);
 
 Route::group(['middleware' => ['auth']], function() { 
     
+    // Route::post('/upfp', [SessionController::class, 'userupdate']);
+    Route::get('/setting', [SessionController::class, 'userindex']);
+    // Route::view('/setting', 'user.setting');
+    
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
     
     
-    Route::view('/cart', 'cart.cart');
+    // Route::view('/cart', 'cart.cart');
+    Route::get('/cart/{id}', [CartController::class, 'cartindex']);
+    
 
 });    
