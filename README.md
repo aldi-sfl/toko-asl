@@ -7,9 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Aldi Salfandi
+## Aldi Salfandi [Universitas Amikom Purwokerto]
 
-universitas amikom purwokerto
 note : pada project ini masih ada beberapa bug
 
 ## About Laravel
